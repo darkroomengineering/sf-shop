@@ -24,6 +24,7 @@ const Gallery = dynamic(
 
 export default function Home({ studioFreight, footer, productsArray }) {
   const isDesktop = useMediaQuery('(min-width: 800px)')
+  const isMobile = useMediaQuery('(max-width: 800px)')
 
   return (
     <Layout
@@ -35,9 +36,7 @@ export default function Home({ studioFreight, footer, productsArray }) {
       }}
       footerLinks={footer.linksCollection.items}
     >
-      {!isDesktop ? (
-        <LayoutMobile studioFreight={studioFreight} products={productsArray} />
-      ) : (
+      {isDesktop === true && (
         <ClientOnly>
           <div className={cn(s.content, 'layout-grid')}>
             <About data={studioFreight.about} />
@@ -45,6 +44,9 @@ export default function Home({ studioFreight, footer, productsArray }) {
             <ProductDetails />
           </div>
         </ClientOnly>
+      )}
+      {isMobile === true && (
+        <LayoutMobile studioFreight={studioFreight} products={productsArray} />
       )}
       <Gallery />
     </Layout>
