@@ -25,8 +25,6 @@ const Gallery = dynamic(
 export default function Home({ studioFreight, footer, productsArray }) {
   const isDesktop = useMediaQuery('(min-width: 800px)')
 
-  console.log('home render')
-
   return (
     <Layout
       theme="dark"

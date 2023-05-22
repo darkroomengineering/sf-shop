@@ -21,8 +21,6 @@ export const Cart = ({}) => {
   const cart = useCart()
   const data = cart.useFetch()
 
-  console.log(data.products)
-
   return (
     <div className={cn(s['cart-overlay'], { [s['set-overlay']]: toggleCart })}>
       <div
