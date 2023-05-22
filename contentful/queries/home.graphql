@@ -1,0 +1,84 @@
+#import "../fragments/link.graphql"
+#import "../fragments/image.graphql"
+
+query studioFreightEntryQuery($preview: Boolean!) {
+  studioFreight: homePage(id: "1EnvYO77BlptwXe1Nd6j8s", preview: $preview) {
+    sys {
+      id
+    }
+    principles
+    about {
+      json
+    }
+    phoneNumber
+    email
+  }
+}
+
+query footerEntryQuery($preview: Boolean!) {
+  footer(id: "3XefV9hKV0SYni0XHoBIgW", preview: $preview) {
+    sys {
+      id
+    }
+    linksCollection {
+      items {
+        ...Link
+      }
+    }
+  }
+}
+
+# query contactEntryQuery($preview: Boolean!) {
+#   contact(id: "4Jf4kYvhy8vgKraoM0oLQO", preview: $preview) {
+#     sys {
+#       id
+#     }
+#     description {
+#       json
+#     }
+#     form
+#     faqsCollection {
+#       items {
+#         title
+#         content {
+#           json
+#         }
+#       }
+#     }
+#     thankYouMessage {
+#       json
+#     }
+#   }
+# }
+
+query projectListEntryQuery($preview: Boolean!) {
+  projectList(id: "77qmn5TcwirMmtLWgTod00", preview: $preview) {
+    sys {
+      id
+    }
+    listCollection(limit: 25) {
+      items {
+        sys {
+          id
+        }
+        name
+        industry
+        description
+        testimonial
+        assetsCollection(limit: 20) {
+          items {
+            imagesCollection(limit: 20) {
+              items {
+                url
+                title
+              }
+            }
+          }
+        }
+        services
+        stack
+        link
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.content {
+  align-items: start;
+  height: 100%;
+  padding: desktop-vw(18px) 0 desktop-vw(24px) 0;
+
+  > section {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: desktop-vh(40px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    &:nth-child(1),
+    &:nth-child(2) {
+      border-right: 1px solid var(--grey);
+      padding-right: desktop-vw(24px);
+    }
+  }
+}

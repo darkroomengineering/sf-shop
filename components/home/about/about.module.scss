@@ -1,0 +1,8 @@
+.about {
+  grid-column: span 2;
+
+  .title {
+    display: flex;
+    padding-bottom: desktop-vh(24px);
+  }
+}
