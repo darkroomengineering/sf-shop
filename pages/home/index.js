@@ -36,7 +36,7 @@ export default function Home({ studioFreight, footer, productsArray }) {
       }}
       footerLinks={footer.linksCollection.items}
     >
-      {isDesktop === true && (
+      {isDesktop === true ? (
         <ClientOnly>
           <div className={cn(s.content, 'layout-grid')}>
             <About data={studioFreight.about} />
@@ -44,6 +44,8 @@ export default function Home({ studioFreight, footer, productsArray }) {
             <ProductDetails />
           </div>
         </ClientOnly>
+      ) : (
+        <LayoutMobile studioFreight={studioFreight} products={productsArray} />
       )}
       {isMobile === true && (
         <LayoutMobile studioFreight={studioFreight} products={productsArray} />

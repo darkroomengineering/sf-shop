@@ -3,12 +3,20 @@
   height: 100%;
   padding: desktop-vw(18px) 0 desktop-vw(24px) 0;
 
+  @include desktop {
+    display: none;
+  }
+
   .hero-image {
     margin-bottom: mobile-vw(24px);
     position: relative;
     aspect-ratio: 375 / 350;
     width: 100%;
     height: mobile-vw(350px);
+
+    @include desktop {
+      display: none;
+    }
   }
 }
 
@@ -169,6 +177,10 @@
   aspect-ratio: 375 / 279;
   width: 100%;
   height: mobile-vw(279px);
+
+  @include desktop {
+    display: none;
+  }
 
   &:before {
     content: '';
