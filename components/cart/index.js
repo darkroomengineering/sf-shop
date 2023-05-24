@@ -43,64 +43,65 @@ export const Cart = ({}) => {
 
             <Button className={cn('button', s['your-bag'])}>Your Bag</Button>
           </div>
-          <div className={s['cart-products-wrapper']}>
-            {data.products.map((product, key) => (
-              <div key={`cart-item-${key}`} className={s['cart-products']}>
-                <div className={s['product-image']}>
-                  <Image src={product.image} alt="" layout="fill" />
-                </div>
-                <div className={s['product-details']}>
-                  <div className={s['product-name-price']}>
-                    <p>{product.name}</p>
-                    <p>${Math.max(product.options.price, 1)}</p>
+          <div className={s['cart-products-wrapper']} data-lenis-prevent>
+            <div>
+              {data.products.map((product, key) => (
+                <div key={`cart-item-${key}`} className={s['cart-products']}>
+                  <div className={s['product-image']}>
+                    <Image src={product.image} alt="" layout="fill" />
                   </div>
-                  <div className={s['product-editables']}>
-                    <div className={s.options}>
-                      <div className={s.quantity}>
-                        <p className="text-uppercase">QTY</p>
-                        <aside>
-                          <button
-                            onClick={() =>
-                              cart.utils.updateItemQuantityUI(data, {
-                                quantity: Math.max(product.quantity - 1, 1),
-                                id: product.id,
-                                merchandiseId: product.options.id,
-                              })
-                            }
-                          >
-                            –
-                          </button>
-                          <p>
-                            {product.quantity < 10
-                              ? `0${product.quantity}`
-                              : product.quantity}
-                          </p>
-                          <button
-                            className={cn({
-                              [s['button-disabled']]:
-                                product.quantity ===
-                                product.options.availableQuantity,
-                            })}
-                            onClick={() =>
-                              cart.utils.updateItemQuantityUI(data, {
-                                quantity: Math.min(
-                                  product.quantity + 1,
-                                  product.options.availableQuantity
-                                ),
-                                id: product.id,
-                                merchandiseId: product.options.id,
-                              })
-                            }
-                          >
-                            +
-                          </button>
-                        </aside>
-                      </div>
-                      <div className={s.size}>
-                        <p className="text-uppercase">SIZE</p>
-                        <aside>
-                          {product.options.option}
-                          {/* <SizesDropdown
+                  <div className={s['product-details']}>
+                    <div className={s['product-name-price']}>
+                      <p>{product.name}</p>
+                      <p>${Math.max(product.options.price, 1)}</p>
+                    </div>
+                    <div className={s['product-editables']}>
+                      <div className={s.options}>
+                        <div className={s.quantity}>
+                          <p className="text-uppercase">QTY</p>
+                          <aside>
+                            <button
+                              onClick={() =>
+                                cart.utils.updateItemQuantityUI(data, {
+                                  quantity: Math.max(product.quantity - 1, 1),
+                                  id: product.id,
+                                  merchandiseId: product.options.id,
+                                })
+                              }
+                            >
+                              –
+                            </button>
+                            <p>
+                              {product.quantity < 10
+                                ? `0${product.quantity}`
+                                : product.quantity}
+                            </p>
+                            <button
+                              className={cn({
+                                [s['button-disabled']]:
+                                  product.quantity ===
+                                  product.options.availableQuantity,
+                              })}
+                              onClick={() =>
+                                cart.utils.updateItemQuantityUI(data, {
+                                  quantity: Math.min(
+                                    product.quantity + 1,
+                                    product.options.availableQuantity
+                                  ),
+                                  id: product.id,
+                                  merchandiseId: product.options.id,
+                                })
+                              }
+                            >
+                              +
+                            </button>
+                          </aside>
+                        </div>
+                        <div className={s.size}>
+                          <p className="text-uppercase">SIZE</p>
+                          <aside>
+                            {product.options.option}
+                            {/* <SizesDropdown
                             product={product}
                             variants={product.variants.filter(
                               (variant) =>
@@ -115,23 +116,24 @@ export const Cart = ({}) => {
                               )
                             }}
                           /> */}
-                        </aside>
+                          </aside>
+                        </div>
                       </div>
+                      <Button
+                        className={cn('button', s.remove)}
+                        onClick={() => {
+                          cart.utils.removeItemUI(data, {
+                            lineIds: [product.id],
+                          })
+                        }}
+                      >
+                        REMOVE
+                      </Button>
                     </div>
-                    <Button
-                      className={cn('button', s.remove)}
-                      onClick={() => {
-                        cart.utils.removeItemUI(data, {
-                          lineIds: [product.id],
-                        })
-                      }}
-                    >
-                      REMOVE
-                    </Button>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
           <div className={s['cart-details']}>
             <Button

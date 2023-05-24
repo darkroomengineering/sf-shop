@@ -9,18 +9,28 @@
   width: 100vw;
   z-index: 2;
   transform: translateX(100%);
+  top: 0;
+  right: 0;
+
+  @include desktop {
+    width: desktop-vw(732px);
+  }
 
   &::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
-    z-index: 1;
+    left: -100%;
     height: 100vh;
     width: 100vw;
     opacity: 0;
     background-color: black;
     transition: 500ms opacity var(--ease-out-circ);
+    pointer-events: none;
+
+    @include mobile {
+      display: none;
+    }
   }
 }
 
@@ -41,10 +51,10 @@
 
 .cart {
   position: absolute;
-  left: -4.2%;
-  top: mobile-vw(-218px);
+  inset: 0;
   z-index: 2;
   height: 100vh;
+  height: 100dvh;
   width: 100vw;
   background-color: black;
   color: white;
@@ -53,27 +63,30 @@
   transition: 500ms opacity var(--ease-out-circ);
 
   @include desktop {
-    left: 47.34%;
-    top: desktop-vw(-243px);
+    height: 100vh;
+    width: desktop-vw(732px);
   }
 
   .inner {
     grid-column: 1 /-1;
-    // margin: 0 mobile-vw(18px);
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
 
     @include desktop {
       grid-column: span 1;
-      // margin: 0 desktop-vw(40px);
+      height: 100vh;
     }
 
     .cart-header {
       @extend .flex-between;
       align-items: center;
-
       border-bottom: 1px solid var(--grey);
-      height: mobile-vw(70px);
+      padding: mobile-vw(16px) 0 mobile-vw(13px) 0;
+
       @include desktop {
-        height: desktop-vw(62px);
+        padding: desktop-vw(15px) 0 desktop-vw(13px) 0;
       }
 
       .close {
@@ -111,8 +124,17 @@
     }
 
     .cart-products-wrapper {
-      height: 59%;
       overflow-y: auto;
+      overscroll-behavior: contain;
+      flex-grow: 1;
+
+      @include desktop {
+        flex-grow: 1;
+      }
+
+      > div {
+        height: auto;
+      }
 
       .cart-products {
         width: 100%;
@@ -261,6 +283,8 @@
                     display: flex;
                     padding: mobile-vw(10px) mobile-vw(26px);
                     width: mobile-vw(114.3px);
+                    justify-content: space-between;
+
                     @include desktop {
                       padding: desktop-vw(10px) desktop-vw(13px);
                       width: desktop-vw(113px);
@@ -269,6 +293,7 @@
                     button {
                       width: mobile-vw(14px);
                       transition: 300ms color var(--ease-in-out-circ);
+                      text-align: center;
 
                       @include desktop {
                         width: desktop-vw(14px);
@@ -276,18 +301,6 @@
 
                       &:hover {
                         color: var(--green);
-                      }
-                    }
-
-                    p {
-                      text-align: center;
-                    }
-
-                    > *:not(:last-child) {
-                      margin-right: mobile-vw(5px);
-
-                      @include desktop {
-                        margin-right: desktop-vw(20px);
                       }
                     }
                   }
@@ -306,6 +319,7 @@
 
                   > aside {
                     width: desktop-vw(84px);
+                    flex-grow: 1;
 
                     @include mobile {
                       width: mobile-vw(90px);
@@ -371,7 +385,9 @@
     }
 
     .cart-details {
-      height: 24%;
+      @include desktop {
+        padding: desktop-vw(16px) 0 desktop-vw(26px) 0;
+      }
 
       .check-out {
         display: flex;
