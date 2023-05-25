@@ -27,10 +27,6 @@ export const SizesDropdown = ({
     }
   }, [])
 
-  useEffect(() => {
-    setCurrentValue(product.options)
-  }, [product])
-
   return (
     <div className={cn('p', s.dropdown, opened && s.opened)}>
       <button

@@ -71,7 +71,6 @@ function MyApp({ Component, pageProps }) {
           />
         </>
       )}
-      {/* <PageTransition /> */}
       <RealViewport />
       <Noise />
       <ProjectProvider

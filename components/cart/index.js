@@ -22,16 +22,10 @@ export const Cart = ({}) => {
   const data = cart.useFetch()
 
   return (
-    <div className={cn(s['cart-overlay'], { [s['set-overlay']]: toggleCart })}>
-      <div
-        className={cn(s.cart, {
-          [s['show-cart']]: toggleCart,
-          [s['hide-cart']]: !toggleCart,
-        })}
-        ref={menuRef}
-      >
+    <div className={cn(s.overlay, toggleCart && s.show)}>
+      <div className={s.cart} ref={menuRef}>
         <div className={s.inner}>
-          <div className={s['cart-header']}>
+          <div className={s.header}>
             <button
               className={s.close}
               onClick={() => {
@@ -40,13 +34,12 @@ export const Cart = ({}) => {
             >
               <Close />
             </button>
-
             <Button className={cn('button', s['your-bag'])}>Your Bag</Button>
           </div>
-          <div className={s['cart-products-wrapper']} data-lenis-prevent>
+          <div className={s['products-wrapper']} data-lenis-prevent>
             <div>
               {data.products.map((product, key) => (
-                <div key={`cart-item-${key}`} className={s['cart-products']}>
+                <div key={`cart-item-${key}`} className={s.products}>
                   <div className={s['product-image']}>
                     <Image src={product.image} alt="" layout="fill" />
                   </div>
@@ -57,67 +50,8 @@ export const Cart = ({}) => {
                     </div>
                     <div className={s['product-editables']}>
                       <div className={s.options}>
-                        <div className={s.quantity}>
-                          <p className="text-uppercase">QTY</p>
-                          <aside>
-                            <button
-                              onClick={() =>
-                                cart.utils.updateItemQuantityUI(data, {
-                                  quantity: Math.max(product.quantity - 1, 1),
-                                  id: product.id,
-                                  merchandiseId: product.options.id,
-                                })
-                              }
-                            >
-                              –
-                            </button>
-                            <p>
-                              {product.quantity < 10
-                                ? `0${product.quantity}`
-                                : product.quantity}
-                            </p>
-                            <button
-                              className={cn({
-                                [s['button-disabled']]:
-                                  product.quantity ===
-                                  product.options.availableQuantity,
-                              })}
-                              onClick={() =>
-                                cart.utils.updateItemQuantityUI(data, {
-                                  quantity: Math.min(
-                                    product.quantity + 1,
-                                    product.options.availableQuantity
-                                  ),
-                                  id: product.id,
-                                  merchandiseId: product.options.id,
-                                })
-                              }
-                            >
-                              +
-                            </button>
-                          </aside>
-                        </div>
-                        <div className={s.size}>
-                          <p className="text-uppercase">SIZE</p>
-                          <aside>
-                            {product.options.option}
-                            {/* <SizesDropdown
-                            product={product}
-                            variants={product.variants.filter(
-                              (variant) =>
-                                variant.id !== product.options.id &&
-                                variant.options.availableQuantity > 0
-                            )}
-                            onChange={(currentProduct, newVariant) => {
-                              cart.utils.changeSelectedVariantUI(
-                                data,
-                                currentProduct,
-                                newVariant
-                              )
-                            }}
-                          /> */}
-                          </aside>
-                        </div>
+                        <ChangeQuantity product={product} />
+                        <ChangeSize product={product} />
                       </div>
                       <Button
                         className={cn('button', s.remove)}
@@ -135,7 +69,7 @@ export const Cart = ({}) => {
               ))}
             </div>
           </div>
-          <div className={s['cart-details']}>
+          <div className={s.details}>
             <Button
               className={cn('button', s['check-out'], {
                 [s['button-disabled']]: !data.products[0],
@@ -152,6 +86,76 @@ export const Cart = ({}) => {
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+const ChangeQuantity = ({ product }) => {
+  const cart = useCart()
+
+  return (
+    <div className={s.quantity}>
+      <p className="text-uppercase">QTY</p>
+      <aside>
+        <button
+          onClick={() =>
+            cart.utils.updateItemQuantityUI(data, {
+              quantity: Math.max(product.quantity - 1, 1),
+              id: product.id,
+              merchandiseId: product.options.id,
+            })
+          }
+        >
+          –
+        </button>
+        <p>
+          {product.quantity < 10 ? `0${product.quantity}` : product.quantity}
+        </p>
+        <button
+          className={cn({
+            [s['button-disabled']]:
+              product.quantity === product.options.availableQuantity,
+          })}
+          onClick={() =>
+            cart.utils.updateItemQuantityUI(data, {
+              quantity: Math.min(
+                product.quantity + 1,
+                product.options.availableQuantity
+              ),
+              id: product.id,
+              merchandiseId: product.options.id,
+            })
+          }
+        >
+          +
+        </button>
+      </aside>
+    </div>
+  )
+}
+
+const ChangeSize = ({ product }) => {
+  return (
+    <div className={s.size}>
+      <p className="text-uppercase">SIZE</p>
+      <aside>
+        {product.options.option}
+        {/* <SizesDropdown
+      product={product}
+      variants={product.variants.filter(
+        (variant) =>
+          variant.id !== product.options.id &&
+          variant.options.availableQuantity > 0
+      )}
+      onChange={(currentProduct, newVariant) => {
+        cart.utils.changeSelectedVariantUI(
+          data,
+          currentProduct,
+          newVariant
+        )
+      }}
+    /> */}
+      </aside>
     </div>
   )
 }

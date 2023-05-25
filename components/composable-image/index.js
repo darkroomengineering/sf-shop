@@ -12,10 +12,10 @@ export function ComposableImage({
   const amount = sources?.length
   return (
     <div className={s.images}>
-      {sources?.map((source) => (
+      {sources?.map((source, id) => (
         <Image
           objectFit="contain"
-          key={source.url}
+          key={`composable-image-${id}`}
           src={source.src}
           alt={source.alt || ''}
           width={width / amount}
