@@ -35,7 +35,7 @@
     "idb-keyval": "^6.2.0",
     "jsonminify": "^0.4.2",
     "lint-staged": "^13.2.0",
-    "next": "13.2.4",
+    "next": "13.5.0",
     "next-pwa": "5.6.0",
     "next-sitemap": "^4.0.5",
     "react": "18.2.0",
